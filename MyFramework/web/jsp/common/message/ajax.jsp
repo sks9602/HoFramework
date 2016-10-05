@@ -22,11 +22,14 @@
 	Object [] paramVar = null;
 	Object result = model.get(HoController.HO_CUD_RESULT);
 	
+	String info = "";
 	if( result instanceof HoMessage ) {
 		HoMessage hm = (HoMessage) result;
 		
 		code = hm.getCode();
 		paramVar = hm.getMessage();
+		
+		info = hm.getInfoStringJson();
 	} else if( result instanceof HoException ) {
 		HoException he = (HoException) result;	
 		
@@ -39,7 +42,8 @@
 	{
 		"success": <%= success %>, 
 		"message" : "성공", 
-		"msg" : "<spring:message code="<%= code %>" arguments="<%= paramVar %>"></spring:message>" 
+		"msg" : "<spring:message code="<%= code %>" arguments="<%= paramVar %>"></spring:message>",
+		"infomation" : { <%= info %> }
 	}
 <%
 	if (scriptTag) {
