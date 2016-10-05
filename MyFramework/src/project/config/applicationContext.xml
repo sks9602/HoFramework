@@ -8,11 +8,11 @@
 	<bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
 		<property name="basenames">
 			<list>
-				<value>file:////D:/Repository/Git/MyFramework/MyFramework/web/WEB-INF/classes/message/ActionMessage</value>
+				<value>file:////D:/Repository/Git/MyFramework/web\WEB-INF/classes/message/ActionMessage</value>
 				<!--  value>/WEB-INF/classes/message/ActionMessage</value-->
-				<value>file:////D:/Repository/Git/MyFramework/MyFramework/web/WEB-INF/classes/message/CommonMessage</value>
-				<value>file:////D:/Repository/Git/MyFramework/MyFramework/web/WEB-INF/classes/message/ErrorMessage</value>
-				<value>file:////D:/Repository/Git/MyFramework/MyFramework/web/WEB-INF/classes/message/PageMessage</value>
+				<value>file:////D:/Repository/Git/MyFramework/web\WEB-INF/classes/message/CommonMessage</value>
+				<value>file:////D:/Repository/Git/MyFramework/web\WEB-INF/classes/message/ErrorMessage</value>
+				<value>file:////D:/Repository/Git/MyFramework/web\WEB-INF/classes/message/PageMessage</value>
 			</list>
 		</property>
 		<property name="cacheSeconds" value="5"/>
