@@ -46,7 +46,11 @@
 	if( !Ext.getCmp('v_list_list')) {
 		fs_AddTab_v_list_list();
 	}
-	
+
+	if( !Ext.getCmp('v_list_formlist')) {
+		fs_AddTab_v_list_formlist();
+	}
+		
 	Ext.getCmp('v_list_tab_list_data_dtl_html').update( 'html<br/>html2' );
 	
 	/*

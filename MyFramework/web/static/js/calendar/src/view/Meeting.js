@@ -56,10 +56,10 @@ Ext.define('Ext.ux.grid.dock.MeetingForm', {
 
 
 Ext.define('Ext.ux.grid.dock.MeetingDetailGrid', {
-    extend: 'Ext.grid.Panel',
+    extend: 'Ext.tree.Panel',
     xtype: 'meetingDetailGrid',
-    store: 'meetingDetailGridStore',
     columnLines: true,
+	rootVisible: false,
     border : 0,
     dockedItems: [
         {
@@ -83,9 +83,9 @@ Ext.define('Ext.ux.grid.dock.MeetingDetailGrid', {
                 */
             items: [
 				{xtype: 'rownumberer', text : 'No', width: 24 },
-				{text: "회의 내용", flex : 1, dataIndex: 'company', align:'center', resizable : true,
+				{xtype: 'treecolumn',  text: "회의 내용", flex : 1, dataIndex: 'text', resizable : true,
 					renderer: function(v, p, r) {
-						return Ext.String.format("<div class=\"in_grid_url_link\" style=\"text-align:left\"  onclick=\"alert(1); fs_click_meetingItem(1)\">{0}</div>", v, r.data.ID);
+						return Ext.String.format("<span class=\"in_grid_url_link\" style=\"text-align:left\"  onclick=\"alert(1); fs_click_meetingItem(1)\">{0}</span>", v, r.data.ID);
 					},
                     editor: {
                         xtype: 'textfield',
@@ -134,71 +134,18 @@ Ext.define('Ext.ux.grid.dock.MeetingDetailGrid', {
             ]
         };
 
-        this.store = Ext.create('Ext.data.ArrayStore', {
-            model: Ext.define('Company', {
-                extend: 'Ext.data.Model',
-                fields: [
-                    {name: 'company'},
-                    {name: 'price', type: 'float'},
-                    {name: 'change', type: 'float'},
-                    {name: 'pctChange', type: 'float'},
-                    {name: 'lastChange', type: 'date', dateFormat: 'n/j h:ia'},
-                    {name: 'industry'},
-                    {name: 'desc'}
-                 ]
-            }) ,
-            data: [
-                   ['Merck & Co., Inc.',40.96,0.41,1.01,'9/1 12:00am', 'Medical'],
-                   ['Microsoft Corporation',25.84,0.14,0.54,'9/1 12:00am', 'Computer'],
-                   ['Pfizer Inc',27.96,0.4,1.45,'9/1 12:00am', 'Medical'],
-                   ['The Coca-Cola Company',45.07,0.26,0.58,'9/1 12:00am', 'Food'],
-                   ['The Home Depot, Inc.',34.64,0.35,1.02,'9/1 12:00am', 'Retail'],
-                   ['The Procter & Gamble Company',61.91,0.01,0.02,'9/1 12:00am', 'Manufacturing'],
-                   ['United Technologies Corporation',63.26,0.55,0.88,'9/1 12:00am', 'Computer'],
-                   ['Verizon Communications',35.57,0.39,1.11,'9/1 12:00am', 'Services'],
-                   ['Wal-Mart Stores, Inc.',45.45,0.73,1.63,'9/1 12:00am', 'Retail'],
-                   ['Walt Disney Company (The) (Holding Company)',29.89,0.24,0.81,'9/1 12:00am', 'Services'],
-                   ['Merck & Co., Inc.',40.96,0.41,1.01,'9/1 12:00am', 'Medical'],
-                   ['Microsoft Corporation',25.84,0.14,0.54,'9/1 12:00am', 'Computer'],
-                   ['Pfizer Inc',27.96,0.4,1.45,'9/1 12:00am', 'Medical'],
-                   ['The Coca-Cola Company',45.07,0.26,0.58,'9/1 12:00am', 'Food'],
-                   ['The Home Depot, Inc.',34.64,0.35,1.02,'9/1 12:00am', 'Retail'],
-                   ['The Procter & Gamble Company',61.91,0.01,0.02,'9/1 12:00am', 'Manufacturing'],
-                   ['United Technologies Corporation',63.26,0.55,0.88,'9/1 12:00am', 'Computer'],
-                   ['Verizon Communications',35.57,0.39,1.11,'9/1 12:00am', 'Services'],
-                   ['Wal-Mart Stores, Inc.',45.45,0.73,1.63,'9/1 12:00am', 'Retail'],
-                   ['Walt Disney Company (The) (Holding Company)',29.89,0.24,0.81,'9/1 12:00am', 'Services'],
-                   ['Merck & Co., Inc.',40.96,0.41,1.01,'9/1 12:00am', 'Medical'],
-                   ['Microsoft Corporation',25.84,0.14,0.54,'9/1 12:00am', 'Computer'],
-                   ['Pfizer Inc',27.96,0.4,1.45,'9/1 12:00am', 'Medical'],
-                   ['The Coca-Cola Company',45.07,0.26,0.58,'9/1 12:00am', 'Food'],
-                   ['The Home Depot, Inc.',34.64,0.35,1.02,'9/1 12:00am', 'Retail'],
-                   ['The Procter & Gamble Company',61.91,0.01,0.02,'9/1 12:00am', 'Manufacturing'],
-                   ['United Technologies Corporation',63.26,0.55,0.88,'9/1 12:00am', 'Computer'],
-                   ['Verizon Communications',35.57,0.39,1.11,'9/1 12:00am', 'Services'],
-                   ['Wal-Mart Stores, Inc.',45.45,0.73,1.63,'9/1 12:00am', 'Retail'],
-                   ['Walt Disney Company (The) (Holding Company)',29.89,0.24,0.81,'9/1 12:00am', 'Services'],
-                   ['Merck & Co., Inc.',40.96,0.41,1.01,'9/1 12:00am', 'Medical'],
-                   ['Microsoft Corporation',25.84,0.14,0.54,'9/1 12:00am', 'Computer'],
-                   ['Pfizer Inc',27.96,0.4,1.45,'9/1 12:00am', 'Medical'],
-                   ['The Coca-Cola Company',45.07,0.26,0.58,'9/1 12:00am', 'Food'],
-                   ['The Home Depot, Inc.',34.64,0.35,1.02,'9/1 12:00am', 'Retail'],
-                   ['The Procter & Gamble Company',61.91,0.01,0.02,'9/1 12:00am', 'Manufacturing'],
-                   ['United Technologies Corporation',63.26,0.55,0.88,'9/1 12:00am', 'Computer'],
-                   ['Verizon Communications',35.57,0.39,1.11,'9/1 12:00am', 'Services'],
-                   ['Wal-Mart Stores, Inc.',45.45,0.73,1.63,'9/1 12:00am', 'Retail'],
-                   ['Walt Disney Company (The) (Holding Company)',29.89,0.24,0.81,'9/1 12:00am', 'Services'],
-                   ['Merck & Co., Inc.',40.96,0.41,1.01,'9/1 12:00am', 'Medical'],
-                   ['Microsoft Corporation',25.84,0.14,0.54,'9/1 12:00am', 'Computer'],
-                   ['Pfizer Inc',27.96,0.4,1.45,'9/1 12:00am', 'Medical'],
-                   ['The Coca-Cola Company',45.07,0.26,0.58,'9/1 12:00am', 'Food'],
-                   ['The Home Depot, Inc.',34.64,0.35,1.02,'9/1 12:00am', 'Retail'],
-                   ['The Procter & Gamble Company',61.91,0.01,0.02,'9/1 12:00am', 'Manufacturing'],
-                   ['United Technologies Corporation',63.26,0.55,0.88,'9/1 12:00am', 'Computer'],
-                   ['Verizon Communications',35.57,0.39,1.11,'9/1 12:00am', 'Services'],
-                   ['Wal-Mart Stores, Inc.',45.45,0.73,1.63,'9/1 12:00am', 'Retail'],
-                   ['Walt Disney Company (The) (Holding Company)',29.89,0.24,0.81,'9/1 12:00am', 'Services']
-               ]
+        this.store = Ext.create('Ext.data.TreeStore', {
+        	root: {
+                expanded: true,
+                children: [
+                    { text: "detention", leaf: true },
+                    { text: "homework", expanded: true, children: [
+                        { text: "book report", leaf: true },
+                        { text: "algebra", leaf: true}
+                    ] },
+                    { text: "buy lottery tickets", leaf: true }
+                ]
+            }
         });
         
         
@@ -327,7 +274,7 @@ Ext.define('Ext.calendar.view.Meeting', {
     	          ],
     	          dockedItems: [{
     	        	  xtype: 'toolbar', flex:1, dock :'bottom', border : true,  
-    	        	  items : [ '->', { xtype : 'button' , text : '조회' }]
+    	        	  items : [ '->', { xtype : 'button' , text : '조회', border: 1, style: { borderColor: '#99bce8', borderStyle: 'solid'} }]
     	          }]
     	         },
     	         {
@@ -456,17 +403,19 @@ Ext.define('Ext.calendar.view.Meeting', {
 																		flex : 1,
 																		dock : 'bottom',
 																		border : true,
-																		items : [{ xtype : 'label', text : '', itemId : 'id_auto_save_msg' }, '->', {
-																			xtype : 'button',
-																			text : '회의록 저장',
-																			handler : function(btn) {
+																		items : [
+																		         { xtype : 'label', text : '', itemId : 'id_auto_save_msg' }, '->', {
+																					xtype : 'button',
+																					text : '회의록 저장',
+																					border: 1, style: { borderColor: '#99bce8', borderStyle: 'solid'},
+																					handler : function(btn) {
 																						btn.up("#id-meeting-card-panel").getLayout().setActiveItem(1) ; 
-
 																					}
 																				},
 																				{
 																					xtype : 'button',
 																					text : '취소',
+																					border: 1, style: { borderColor: '#99bce8', borderStyle: 'solid'},
 																					handler : function(btn) {
 																						// console.log(btn.up("panel").up("panel").up("panel").getLayout().setActiveItem(1) );
 																						btn.up("#id-meeting-card-panel").getLayout().setActiveItem(1) ; 
@@ -609,9 +558,11 @@ Ext.define('Ext.calendar.view.Meeting', {
 											region : 'center',
 											title : '회의상세 내용'
 									}]},{
-									xtype : 'grid',
+									xtype : 'treegrid',
 									title : '회의 상세내용',
 									columnLines : true,
+									rootVisible: false,
+		            	        	// useArrows: true,
 									border : 0,
 									columns : {
 										defaults : {
@@ -623,31 +574,17 @@ Ext.define('Ext.calendar.view.Meeting', {
 													text : 'No',
 													width : 35
 												},
-												{
-													text : "구분",
-													width : 120,
-													dataIndex : 'company',
-													align : 'center'
-												},
-												{
-													text : "회의 일시",
-													dataIndex : 'lastChange',
-													align : 'center',
-													renderer : Ext.util.Format
-															.dateRenderer('Y/m/d a')
-												},
-												{
+												{	xtype: 'treecolumn', 
 													text : "회의 내용",
 													flex : 1,
-													dataIndex : 'company',
-													align : 'center',
+													dataIndex : 'text',
+													align : 'left',
 													renderer : function(
 															v,
 															p,
 															r) {
-														return Ext.String
-																.format(
-																		"<div class=\"in_grid_url_link\" style=\"text-align:left\"  onclick=\"alert(1); fs_click_meetingItem(1)\">{0}</div>",
+														return Ext.String.format(
+																		"<span class=\"in_grid_url_link\"  style=\"cursor:pointer;text-align:left;\" onclick=\"fs_click_meetingItem('{1}');\"><b>{0}</b></span>",
 																		v,
 																		r.data.ID);
 													},
@@ -655,6 +592,12 @@ Ext.define('Ext.calendar.view.Meeting', {
 														xtype : 'textfield',
 														selectOnFocus : true
 													}
+												},
+												{
+													text : "회의 일시",
+													dataIndex : 'lastChange',
+													align : 'center',
+													renderer : Ext.util.Format.dateRenderer('Y/m/d a')
 												},
 												{
 													xtype : 'actioncolumn',
@@ -702,31 +645,18 @@ Ext.define('Ext.calendar.view.Meeting', {
 												// , handler: Ext.bind(me.handleDeleteClick, me)
 												} ]
 									},
-	                store : Ext.create('Ext.data.ArrayStore', {
-	                    model: Ext.define('Company', {
-	                        extend: 'Ext.data.Model',
-	                        fields: [
-	                            {name: 'company'},
-	                            {name: 'price', type: 'float'},
-	                            {name: 'change', type: 'float'},
-	                            {name: 'pctChange', type: 'float'},
-	                            {name: 'lastChange', type: 'date', dateFormat: 'n/j h:ia'},
-	                            {name: 'industry'},
-	                            {name: 'desc'}
-	                         ]
-	                    }) ,
-	                    data: [
-	                           ['Merck & Co., Inc.',40.96,0.41,1.01,'9/1 12:00am', 'Medical'],
-	                           ['Microsoft Corporation',25.84,0.14,0.54,'9/1 12:00am', 'Computer'],
-	                           ['Pfizer Inc',27.96,0.4,1.45,'9/1 12:00am', 'Medical'],
-	                           ['The Coca-Cola Company',45.07,0.26,0.58,'9/1 12:00am', 'Food'],
-	                           ['The Home Depot, Inc.',34.64,0.35,1.02,'9/1 12:00am', 'Retail'],
-	                           ['The Procter & Gamble Company',61.91,0.01,0.02,'9/1 12:00am', 'Manufacturing'],
-	                           ['United Technologies Corporation',63.26,0.55,0.88,'9/1 12:00am', 'Computer'],
-	                           ['Verizon Communications',35.57,0.39,1.11,'9/1 12:00am', 'Services'],
-	                           ['Wal-Mart Stores, Inc.',45.45,0.73,1.63,'9/1 12:00am', 'Retail'],
-	                           ['Walt Disney Company (The) (Holding Company)',29.89,0.24,0.81,'9/1 12:00am', 'Services']
-	                       ]
+	                store : Ext.create('Ext.data.TreeStore', {
+	                	root: {
+	                        expanded: true,
+	                        children: [
+	                            { text: "detention", leaf: true },
+	                            { text: "homework", expanded: true, children: [
+	                                { text: "book report", leaf: true },
+	                                { text: "algebra", leaf: true}
+	                            ] },
+	                            { text: "buy lottery tickets", leaf: true }
+	                        ]
+	                    }
 	                }),
 	    	          dockedItems: [	
 	        	          {
@@ -737,6 +667,7 @@ Ext.define('Ext.calendar.view.Meeting', {
 							items : [ {
 								xtype : 'button',
 								text : '회의록 추가',
+								border: 1, style: { borderColor: '#99bce8', borderStyle: 'solid'},
 								handler : function(btn) {
 											// btn.up("panel").up("panel").getLayout().setActiveItem(0);
 											btn.up("#id-meeting-card-panel").getLayout().setActiveItem(0) ; 

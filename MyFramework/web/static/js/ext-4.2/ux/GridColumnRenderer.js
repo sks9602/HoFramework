@@ -1,3 +1,35 @@
+function rowspanRenderer(value, meta, record, rowIndex, colIndex, store) {
+	var getId = this.dataIndex; // 'industry'
+	var first = !rowIndex || value !== store.getAt(rowIndex - 1).get(getId),
+	    last = rowIndex >= store.getCount() - 1 || value !== store.getAt(rowIndex + 1).get(getId);
+	meta.css += 'row-span' + (first ? ' row-span-first' : '') +  (last ? ' row-span-last' : '');
+	if (first) {
+		var i = rowIndex + 1;
+		while (i < store.getCount() && value === store.getAt(i).get(getId)) {
+			i++;
+		}
+		var rowHeight = 20, padding = 6,
+			height = (rowHeight * (i - rowIndex) - padding) + 'px';
+		meta.attr = 'style="height:' + height + ';line-height:' + height + ';"';
+	}
+	return first ? value : '';
+}
+
+function renderBool(val) {
+    var checkedImg   = '/s/static/js/ext-4.2/resources/ext-theme-classic/images/menu/checked.gif';
+    var uncheckedImg = '/s/static/js/ext-4.2/resources/ext-theme-classic/images/menu/unchecked.gif';
+    var cb = ''
+        + '<div style="text-align:center;height:13px;overflow:visible">'
+        + '<img style="vertical-align:-3px" src="'
+        + (val ? checkedImg : uncheckedImg)
+        + '"'
+        + ' />'
+        + '</div>'
+    ;
+    return cb;
+}  
+
+
 GridColumnRenderer = function() {
 
 }

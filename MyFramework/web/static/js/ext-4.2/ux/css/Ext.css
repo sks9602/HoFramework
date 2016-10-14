@@ -48,9 +48,9 @@
 ime-mode:active; 	
 }
 
-/** badge �뒪���씪(iphone notification媛숈� �슚怨�)-(�닽�옄留� �굹�삤�뒗 �삎�깭) �떆�옉
- * 李멸퀬 url : http://jsfiddle.net/ThinkingStiff/mLW47/
- * �궗�슜踰�) <div class="badge">1</div>
+/** badge 
+ * 참고 url : http://jsfiddle.net/ThinkingStiff/mLW47/
+ * 사용예) <div class="badge">1</div>
  *       <div class="badge">9999+</div>
 **/
 .badge {

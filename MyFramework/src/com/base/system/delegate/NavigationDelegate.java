@@ -1,5 +1,8 @@
 package com.base.system.delegate;
 
+import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
+
 import com.base.system.delegate.validator.SampleValidator;
 
 import project.jun.config.HoConfig;
@@ -29,7 +32,7 @@ public class NavigationDelegate extends HoDelegate {
 	 * @return
 	 * @throws HoException
 	 */
-    public Object list(String actionFlag, HoModel model, HoParameter parameter, HoConfig hoConfig) throws HoException {
+    public Object list(String actionFlag, HoModel model, HoParameter parameter, HoConfig hoConfig) throws HoException, Exception {
 
 		HoDao dao = this.getHoDao();
 
@@ -51,6 +54,24 @@ public class NavigationDelegate extends HoDelegate {
 
 		model.put( KEY_JSON_DATA , list);
 
+		ArrayList<String []> pageList = new ArrayList<String []>();
+		if( "/system/menu.do".equals(parameter.get("action")) ) {
+			pageList.add(new String[]{"/system/menu.do", "v_treelist_detail", "메뉴 관리"});		
+		} else if( "/system/auth.do".equals(parameter.get("action")) ) {		
+			pageList.add(new String[]{"/system/auth.do", "v_auth_menu", "권한 관리"});
+			pageList.add(new String[]{"/system/auth.do", "v_treelist_auth", "권한별 메뉴"});
+		} else if( "/example/example.do".equals(parameter.get("action")) ) {					
+			pageList.add(new String[]{"/example/example.do", "v_list", "예제 조회"});
+			pageList.add(new String[]{"/example/example.do", "v_detail_list", "상세+목록(탭)"});
+			pageList.add(new String[]{"/example/example.do", "v_list_tab_list", "목록+탭+목록(탭)"});
+			pageList.add(new String[]{"/example/example.do", "v_detail", "상세(탭)"});
+			pageList.add(new String[]{"/example/example.do", "v_tree_detail", "트리+상세 조회"});
+			pageList.add(new String[]{"/example/example.do", "v_list_list", "목록+목록"});
+			pageList.add(new String[]{"/example/example.do", "v_list_formlist", "목록+(검색조건)목록"});
+			
+			pageList.add(new String[]{"/example/example.do", "v_tpl", "TPL 생성"});
+		}
+		model.put( "PAGE_LIST_DATA" , pageList);
 
     	return null;
     }

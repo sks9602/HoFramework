@@ -90,7 +90,7 @@ Ext.define('Ext.calendar.view.Wbs', {
             	                xtype: 'toolbar', dock: 'bottom', flex:1, border : true, 
             	            	items : [ 
             	            		'->', 
-            	            	    { xtype : 'button' , text : '조회' }
+            	            	    { xtype : 'button' , text : '조회',  border: 1, style: { borderColor: '#99bce8', borderStyle: 'solid'} }
             	            	]
             	          }]
             	         },
@@ -108,9 +108,9 @@ Ext.define('Ext.calendar.view.Wbs', {
             	            	items : [
             	            	    { dataIndex: 'level', text : 'No', width: 60, style: 'text-align:center' },
 									{ dataIndex: 'prc' , header: '<div class="grid-header-textfield"></div>&nbsp;단계'  , sortable: true , style: 'text-align:center', align: 'left'  ,  width: 80 },
-									{ xtype: 'treecolumn', dataIndex: 'text' , header: '<div class="grid-header-link"></div>&nbsp;업무내용'  , sortable: true , style: 'text-align:center', align: 'left'  , width: 200, renderer : 
-										
-										function (value, p, record){
+									{ xtype: 'treecolumn', dataIndex: 'text' , header: '<div class="grid-header-link"></div>&nbsp;업무내용'  , sortable: true , style: 'text-align:center', align: 'left'  , width: 200, 
+										editor : 'textfield',
+										renderer : function (value, p, record){
 											return Ext.String.format(
 												"<span style=\"cursor:pointer;text-align:left;\" onclick=\"alert('{0}');\"><b>{0}</b></span>",
 											value,
@@ -175,6 +175,7 @@ Ext.define('Ext.calendar.view.Wbs', {
 		          	                xtype: 'toolbar', dock: 'top', flex:1, border : true, 
 		          	            	items : [ 
 		          	            	    { xtype : 'button' , text : '추가',
+		          	            	    	border: 1, style: { borderColor: '#99bce8', borderStyle: 'solid'},
 		          	            	    	handler : function() {
 		          	            	    		var tree = this.up('treepanel');
 		          	            	    		
@@ -210,7 +211,10 @@ Ext.define('Ext.calendar.view.Wbs', {
 		            	            		'->', 
 		            	            	    { xtype : 'button' , text : '조회' }
 		            	            	]
-		            	          }]
+		            	          }],
+		            	          plugins:[
+            	                     Ext.create('Ext.grid.plugin.CellEditing', {clicksToEdit : 1})
+            	                  ]
             	         }
             	]
             	 

@@ -55,7 +55,7 @@
         border : 1,
 	    <%= "Y".equals(hidden) ? "hidden : true," : "" %> 
 	    <% if( "search".equals(section) )  { %>
-	    title: '검색조건', split: true, collapsible  : true, 
+	    title: '<%= HoUtil.replaceNull(title, "검색조건") %>', split: true, collapsible  : true, 
         region: '<%= HoUtil.replaceNull(position, "north") %>',
         iconCls:'top-search-title-icon',  // --> dockedItems에 Ext.create('Ext.panel.Header', { title : '검색조건', dock: 'top', collapsible  : true,  iconCls:'top-search-title-icon', collapsedCls : 'top-search-title'}),
         collapsedCls : 'top-search-title', // --> dockedItems에  Ext.create('Ext.panel.Header', { title : '검색조건', dock: 'top', collapsible  : true,  iconCls:'top-search-title-icon', collapsedCls : 'top-search-title'}),

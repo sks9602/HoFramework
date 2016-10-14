@@ -115,3 +115,24 @@ function hoMessage(msg, fn) {
         icon: Ext.MessageBox.INFO
     });
 }
+
+function fs_HoScriptLog(msg, level) {
+	if( level ) {
+			// Error
+		 var ePat = new RegExp('e.*$', 'i'), 
+		 	// Warn
+		 	wPat = new RegExp('w.*$', 'i');
+			
+		if( ePat.test(level)) {
+			console.error( arguments.callee.caller.toString() + " : " + msg);
+		} else if( wPat.test(level)) {
+			console.warn( arguments.callee.caller.toString() + " : " + msg);
+		} else{
+			// console.log(arguments.callee.caller.toString() + " : " +msg);
+			console.log( arguments.callee.caller.toString() + " : " + msg);
+		}
+	} else {
+		// console.log(arguments.callee.caller.toString() + " : " +msg);
+		console.log( arguments.callee.caller.toString() + " : " + msg);
+	}
+}

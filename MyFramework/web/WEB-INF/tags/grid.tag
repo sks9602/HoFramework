@@ -362,20 +362,23 @@ attribute name="editable" type="java.lang.String"%>
 		<% } %>
 		border : 1,
 		<%
+			String selModel = "";
 			if(HoValidator.isEmpty(lead)) {
-				lead = "cellmodel";
+				selModel = "selType : 'cellmodel', ";
 			} else {
 				if( "+".equals(lead)) {
-					lead = "";
+					selModel = "";
 				} else if( lead.startsWith("check")) {
-					lead = "checkboxmodel";
+					selModel = "selType : 'checkboxmodel', ";
+				} else if( lead.startsWith("radio")) {
+					selModel = "selModel : {  selType : 'checkboxmodel', mode : 'SINGLE' }, ";
 				} else {
-					lead = "cellmodel";
+					selModel = "selType : 'cellmodel', ";
 				}
 			}
 			
 		%>
-		<%= !"".equals(lead) ? "selType: '"+lead+"'," : "" %>
+		<%= selModel %>
 		<% if( HoServletUtil.getArea(request).indexOf("fieldcontainer") > 0 ) { %>
 			margin: '0 0 0 <%= HoServletUtil.getArea(request).indexOf("section") > 0 ? "-5" : "-10" %>',
 	    <% } else if( !"center".equals(HoUtil.replaceNull(position)) )  { %>
