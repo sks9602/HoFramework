@@ -82,14 +82,17 @@ attribute name="maxLength"    type="java.lang.String" %><%
 			setFormItemInfo( request,  param, item ); 
 		}
 		
-		id = HoUtil.replaceNull(id);
+		if( "random".equals(id) ) {
+			id = "itemId : '"+ HoUtil.replaceNull( id, name.toUpperCase()) +"', ";
+		} else {
+			id = "itemId : '"+ HoUtil.replaceNull( id, name.toUpperCase()) +"', id : '" + p_action_flag + "_" + formId + "_" + HoUtil.replaceNull( id, name.toUpperCase()) + "' ,";
+		}
 		
 		if( "text".equals(type) ) {
 %>
 			{
 				xtype      : 'textfield_ux', // <%= HoServletUtil.getArea(request).indexOf("section") >= 0 ? "margin : '0 2 1 0'," : "" %> 
-				itemId     : '<%= name.toUpperCase() %>',
-				id         : '<%=p_action_flag %>_<%= formId %>_<%= name.toUpperCase() %>', // _text
+				<%= id %>
 				fieldLabel : '<%= title %>', <%= HoValidator.isIn(require, new String[]{"Y","true"}, true) ? "allowBlank : false, labelCls   : 'x-form-item-label x-form-item-label-required'," : "" %>
 				name       : '<%= name %>',
 				labelWidth : <%=labelWidth %>,
@@ -110,7 +113,7 @@ attribute name="maxLength"    type="java.lang.String" %><%
 %>
 			{
 				xtype: 'displayfield_ux', 
-				id         : '<%=p_action_flag %>_<%= formId %>_<%= name.toUpperCase() %>', // _text
+				<%= id %>
 				fieldLabel: '<%= title %>', <%= HoValidator.isIn(require, new String[]{"Y","true"}, true) ? "allowBlank : false, labelCls   : 'x-form-item-label x-form-item-label-required'," : "" %>
 				name      : '<%= name %>',
 				submitValue: true,
@@ -133,7 +136,7 @@ attribute name="maxLength"    type="java.lang.String" %><%
 				xtype     : 'password_ux',
 				fieldLabel: '<%= title %>', <%= HoValidator.isIn(require, new String[]{"Y","true"}, true) ? "allowBlank : false, labelCls   : 'x-form-item-label x-form-item-label-required', " : "" %>
 				name      : '<%= name %>',
-				id         : '<%=p_action_flag %>_<%= formId %>_<%= name.toUpperCase() %>', // _password
+				<%= id %>
 				value     : '<%= HoUtil.replaceNull(value) %>',
 				<%= HoValidator.isNotEmpty(width) ? "width: "+width+"+" +labelWidth+"," : "" %> 
 				<%=  !HoValidator.isEmpty(vtype) ? "vtype: '"+vtype+"'," : "" %>
@@ -146,7 +149,7 @@ attribute name="maxLength"    type="java.lang.String" %><%
 				width     : <%= HoUtil.replaceNull(width, "505")%> + <%=labelWidth %>,  
 				fieldLabel: '<%= title %>', <%= HoValidator.isIn(require, new String[]{"Y","true"}, true) ? "allowBlank : false, labelCls   : 'x-form-item-label x-form-item-label-required'," : "" %>
 				name      : '<%= name %>',
-				id         : '<%=p_action_flag %>_<%= formId %>_<%= name.toUpperCase() %>', // _textarea 
+				<%= id %>
 				<%= HoValidator.isNotEmpty(width) ? "width: "+width+"+" +labelWidth+"," : "" %> 
 				maxLength : <%= HoUtil.replaceNull(maxLength, "400") %>, 
 				<%= HoValidator.isNotEmpty(colspan) ? "colspan: "+colspan+"," : ""  %><%= HoValidator.isNotEmpty(rowspan) ? "rowspan: "+rowspan+"," : ""  %>
@@ -156,7 +159,7 @@ attribute name="maxLength"    type="java.lang.String" %><%
 %>
 			{
 				xtype     : 'hidden',
-				id         : '<%=p_action_flag %>_<%= formId %>_<%= name.toUpperCase() %>', //_text
+				<%= id %>
 				width     : 320,
 				name      : '<%= name %>',
 				value     : '<%= HoUtil.replaceNull(value) %>',

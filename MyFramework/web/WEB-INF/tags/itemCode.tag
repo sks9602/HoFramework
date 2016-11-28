@@ -276,6 +276,7 @@ attribute name="rowspan"    type="java.lang.String" %><%
 		            %>
 		            ]
 		        })
+		        <%= HoValidator.isIn(multiSelect, new String[]{"Y","true"}, true)  ? ", plugins: ['counterCode']" : "" %>
 		     }
 <%
 		}

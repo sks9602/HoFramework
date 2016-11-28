@@ -95,8 +95,8 @@ Ext.define('Ext.calendar.view.Wbs', {
             	          }]
             	         },
             	         {xtype:'treegrid', 
-            	        	rootVisible: false,
-            	        	useArrows: true,
+            	        	rootVisible: true,
+            	        	// useArrows: true,
             	        	viewConfig: {
             	            	forceFit: true
             	            },
@@ -133,6 +133,9 @@ Ext.define('Ext.calendar.view.Wbs', {
             	    			autoLoad: true,
             	    			// autoSync: true,
             	    			remoteSort:	false,
+            	    			root: {
+            	    				'level' : '0', 'id' : 'id_0', 'text': "* WBS를 1단계에 추가시 여기를 선택하고 추가하세요.", 'value' : 0, name: "Root"
+            	    		    },
             	    			fields:['level', 'id', 'text', 'owner','tname','table_name','table_alias','table_type','table_comments','cnt', 'mode'], //['TABLE_NAME', 'TABLE_ALIAS', 'TABLE_TYPE'],
             	    			proxy: Ext.create('Ext.data.HttpProxy', {
             	    				type: 'ajax', //'memory',
@@ -140,7 +143,7 @@ Ext.define('Ext.calendar.view.Wbs', {
             	    				reader: {
             	    		            type: 'json',
             	    		            params : { 'p_action_flag' : 'r_json_tree' }
-            	    		            //, expanded: true
+            	    		            // , expanded: true
             	    		        }, 
             	    		        writer: {
             	    		        	type: 'ux_json',

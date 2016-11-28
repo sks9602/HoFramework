@@ -1,4 +1,11 @@
-function rowspanRenderer(value, meta, record, rowIndex, colIndex, store) {
+
+
+
+GridColumnRenderer = function() {
+
+}
+
+GridColumnRenderer.rowspanRenderer = function(value, meta, record, rowIndex, colIndex, store) {
 	var getId = this.dataIndex; // 'industry'
 	var first = !rowIndex || value !== store.getAt(rowIndex - 1).get(getId),
 	    last = rowIndex >= store.getCount() - 1 || value !== store.getAt(rowIndex + 1).get(getId);
@@ -15,35 +22,30 @@ function rowspanRenderer(value, meta, record, rowIndex, colIndex, store) {
 	return first ? value : '';
 }
 
-function renderBool(val) {
+GridColumnRenderer.renderBool = function(v) {
     var checkedImg   = '/s/static/js/ext-4.2/resources/ext-theme-classic/images/menu/checked.gif';
     var uncheckedImg = '/s/static/js/ext-4.2/resources/ext-theme-classic/images/menu/unchecked.gif';
-    var cb = ''
-        + '<div style="text-align:center;height:13px;overflow:visible">'
-        + '<img style="vertical-align:-3px" src="'
-        + (val ? checkedImg : uncheckedImg)
-        + '"'
-        + ' />'
-        + '</div>'
+    
+    return String.format('<div style="text-align:center;height:13px;overflow:visible"><img style="vertical-align:-3px" src="{0}" /></div>', (v ? checkedImg : uncheckedImg));
+    /*
+    var cb = '<div style="text-align:center;height:13px;overflow:visible"><img style="vertical-align:-3px" src="'
+        + (v ? checkedImg : uncheckedImg)
+        + '" /></div>'
     ;
     return cb;
+    */
 }  
-
-
-GridColumnRenderer = function() {
-
-}
 
 /**
  * 소수 조회..
  */
-GridColumnRenderer.decFormat = function(v, precision) {
+GridColumnRenderer.decFormat = function(v, defalutVal, precision) {
 	if( Ext.isNumeric( v ) ) {
 		var p = "".rpad('0', precision||2 );
 		
 		return Ext.util.Format.number(v, '0,0.'+p);		
 	} else {
-		return '0';
+		return defalutVal||'-';
 	}
 }
 

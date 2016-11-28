@@ -727,7 +727,7 @@
 					renderer : function (value, metaData, record){
 						// metaData.tdAttr = 'data-qtip="' + value + '"';
 						return Ext.String.format(
-							"<span class=\"in_grid_url_link\" onclick=\"fs_v_auth_menu_상세조회('{1}');\">{0}</span>",
+							"<span class=\"in_grid_url_link\" onclick=\"fs_${p_action_flag}_상세조회('{1}');\">{0}</span>",
 						value,
 						record.data.AUTH_ID,
 						metaData );

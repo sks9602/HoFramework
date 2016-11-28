@@ -53,6 +53,12 @@
 		
 	Ext.getCmp('v_list_tab_list_data_dtl_html').update( 'html<br/>html2' );
 	
+	if( !Ext.getCmp('v_tpl')) {
+		fs_AddTab_v_tpl();
+	}
+	
+	
+	
 	/*
 	if( !Ext.getCmp('v_auth_menu')) {
 		fs_AddTab_v_auth_menu();

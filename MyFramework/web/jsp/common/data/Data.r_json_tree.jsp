@@ -32,7 +32,7 @@
 	MetaData md = (list!=null ? list.getMetaData() : null );
 
 %>
-{'children': [
+{'level' : '0', 'id' : 'id_0', 'text': "Root", 'value' : 0, name: "Root", leaf: false,  children: [
 
 <%--  @TODO 아래의 TREE부분... 로직 처리. 시작. --%>	
 { 'level' : '1', 'id' : 'id_1', 'text': "detention", 'value' : 1, name: "Detention",  leaf: true },

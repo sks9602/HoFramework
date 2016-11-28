@@ -1,7 +1,7 @@
 /**
- * 단어수 확인..
+ * 글자 수 확인..
  */
-Ext.define('Ext.ux.plugins.CouterCheck', {
+Ext.define('Ext.ux.plugins.CounterCheck', {
     extend: 'Ext.util.Observable',
     alias: 'plugin.counter',
     

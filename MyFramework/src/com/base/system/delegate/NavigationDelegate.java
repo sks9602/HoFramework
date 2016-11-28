@@ -50,7 +50,7 @@ public class NavigationDelegate extends HoDelegate {
 		logger.warn( HoLogging.toString(hoViolationMap.getViolationParameterNames()) );
 		// 파라미터 유효성 검사 - 끝..
 
-		HoList list = dao.select("Menu.selectMenuList", value);
+		HoList list = dao.select("Menu.selectAdminToolMenuList", value);
 
 		model.put( KEY_JSON_DATA , list);
 

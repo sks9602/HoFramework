@@ -25,6 +25,8 @@ Ext.override(Ext.form.Field, {
  * 암호화 하여 submit
 
 Ext.override(Ext.form.field.Text, {
+	key : 'MyFramework_AES_Key',
+	iv : 'MyFramework_AES_IV',
     getSubmitData: function() {
         var me = this,
         data = null,
@@ -38,7 +40,7 @@ Ext.override(Ext.form.field.Text, {
 	            		encVal = CryptoJS.SHA256(val).toString();
 	            		break;
 	            	case 'aes' : 
-	            		encVal = CryptoJS.AES.encrypt(val, me.password||'TODO-PASSWORD-HERE').toString();
+	            		encVal = CryptoJS.AES.encrypt(val, , me.key||'TODO-PASSWORD-KEY' , { iv : me.iv||'TODO-PASSWORD-IV' }).toString();
 	            		break;
 	            	default : 	
 	            		encVal = val;
@@ -67,6 +69,8 @@ Ext.define('Ext.form.field.ux.Password', {
 	labelSeparator : '', 
 	width : 320,
 	labelWidth : 120,
+	key : 'MyFramework_AES_Key',
+	iv : 'MyFramework_AES_IV',
 	constructor: function(config) {
 		if( !config.afterLabelTextTpl && config.comments ) {
 			config.afterLabelTextTpl =  Ext.create('Ext.XTemplate', Ext.String.format(G_HELP_TIP_TPL , '{id}-help', config.commentsTitle||'', config.comments ));
@@ -123,7 +127,7 @@ Ext.define('Ext.form.field.ux.Password', {
 	            		encVal = CryptoJS.SHA256(val).toString();
 	            		break;
 	            	case 'aes' : 
-	            		encVal = CryptoJS.AES.encrypt(val, me.password||'TODO-PASSWORD-HERE').toString();
+	            		encVal = CryptoJS.AES.encrypt(val, me.key||'TODO-PASSWORD-KEY' , { iv : me.iv||'TODO-PASSWORD-IV' } ).toString();
 	            		break;
 	            	default : 	
 	            		encVal = CryptoJS.SHA256(val).toString();
@@ -146,6 +150,8 @@ Ext.define('Ext.form.field.ux.TextFieldUx', {
 	msgTarget  : 'side', 
 	labelWidth : 120,
 	width      : 320, 
+	key : 'MyFramework_AES_Key',
+	iv : 'MyFramework_AES_IV',
 	/*
 	cls: 'my-field', // <-- 앞뒤 감싸기 추가용..
 	beforeBodyEl: '<span class="my-field-prefix">$</span>', //  <-- 앞뒤 감싸기 추가용..
@@ -362,7 +368,7 @@ Ext.define('Ext.form.field.ux.TextFieldUx', {
 	            		encVal = CryptoJS.SHA256(val).toString();
 	            		break;
 	            	case 'aes' : 
-	            		encVal = CryptoJS.AES.encrypt(val, me.password||'TODO-PASSWORD-HERE').toString();
+	            		encVal = CryptoJS.AES.encrypt(val, me.key||'TODO-PASSWORD-KEY' , { iv : me.iv||'TODO-PASSWORD-IV' }).toString();
 	            		break;
 	            	default : 	
 	            		encVal = val;

@@ -1,4 +1,24 @@
 /**
+ * Records에서 해당하는 index의 record를 조회
+ * @param records
+ * @param idx
+ * @returns
+ */
+function getRecord(records, idx) {
+	if(Ext.isArray(records)) {
+		
+		var ridx = idx||0;
+		if( ridx < records.length ) {
+			return records[ridx];
+		} else {
+			return null;
+		}
+	} else {
+		return records;
+	}
+}
+
+/**
  * Class that checks if user is idle.
  */
 Ext.define('Utils.IdleTimer', {
@@ -159,6 +179,24 @@ Ext.override(Ext.form.BasicForm, {
         });
 		return result;
 	},
+    loadRecord : function(record, ignoreObjectNames) {
+    	var me = this;
+    	
+    	
+    	if( record == null || (record.get("totalCount") && record.get("totalCount") < 0 && record.get("message")) ) {
+    		hoAlert('연결이 종료 되었습니다.', fs_goLoginPage );
+    	}
+    	return me.callParent(arguments);
+    	
+    	/*
+    	if( ignoreObjectNames ) {
+            this._record = record;
+            return this.setValuesHasIgnore(record.getData(), ignoreObjectNames);   		
+    	} else {
+    		
+    	}
+    	*/
+    },
     getValues: function(asString, dirtyOnly, includeEmptyText, useDataValues) {
         var values  = {},
             fields  = this.getFields().items,
@@ -256,23 +294,6 @@ Ext.define('Ext.ux.FormPanel', {
     initComponent: function() {
     	var me = this;
     	me.callParent();
-    },
-    loadRecord : function(record, ignoreObjectNames) {
-    	var me = this;
-    	
-    	if( record.get("totalCount") < 0 && record.get("message") ) {
-    		hoAlert('연결이 종료 되었습니다.', fs_goLoginPage );
-    	}
-    	return me.callParent(arguments);
-    	
-    	/*
-    	if( ignoreObjectNames ) {
-            this._record = record;
-            return this.setValuesHasIgnore(record.getData(), ignoreObjectNames);   		
-    	} else {
-    		
-    	}
-    	*/
     },
     setValuesHasIgnore: function(values, ignoreObjectNames) {
         var me = this,

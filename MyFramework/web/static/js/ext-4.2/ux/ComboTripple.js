@@ -59,10 +59,13 @@ Ext.define('Ext.form.field.ux.ComboTripple', {
                         win.show();
                     });
                 }
+                /*
                 if (_this.value == null || _this.value == '') {
-                    _this.setCloseTriggerDisplay(false);
+                	_this.setCloseTriggerDisplay(false);
                 }
-
+				*/
+                _this.setCloseTriggerDisplay((_this.value == null || _this.value == '') ?  false : true);
+                
                 // ok, 하지만 화면의 ui때문에 주석처리
                 _this.on('change', function(__this, newValue, oldValue, eOpts) {
                     __this.setCloseTriggerDisplay(newValue != '');

@@ -145,7 +145,7 @@ attribute name="thousand"    type="java.lang.String" %>
 			items : [
 			{
 				xtype          : 'numberfield_ux', 
-				width          : 230, 
+				width          : 220, 
 				fieldLabel     : '<%= title %>', <%= HoValidator.isIn(require, new String[]{"Y","true"}, true) ? "allowBlank : false, labelCls   : 'x-form-item-label x-form-item-label-required'," : "" %>
 				labelWidth     : <%=labelWidth %>,
 				name           : 'STT_<%= name %>',
@@ -166,7 +166,7 @@ attribute name="thousand"    type="java.lang.String" %>
 			{xtype           :'label', text : ' ~ ', labelCls : 'x-form-item-label', margin : '0 5 0 5'  },
 			{
 				xtype     : 'numberfield_ux',  
-				width     : 90,
+				width     : 81,
 				<%= HoValidator.isIn(require, new String[]{"Y","true"}, true) ? "allowBlank : false, labelCls   : 'x-form-item-label x-form-item-label-required'," : "" %>
 				name      : 'END_<%= name %>',
 				value     : '<%= HoUtil.replaceNull(nValues[1]) %>', <%= "Y".equals(thousand) ? "useThousandSeparator : true ," : "" %>

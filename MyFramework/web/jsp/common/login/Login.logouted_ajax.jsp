@@ -35,7 +35,7 @@
 {
 	"totalCount" : -200,
 	"children" : [{'id' : -200}],
-	"datas":[]
+	"datas":[  {"totalCount" : -200, "message" : "Logouted." } ]
 }
 <%
 if (scriptTag) {

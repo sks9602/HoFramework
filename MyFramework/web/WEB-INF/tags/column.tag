@@ -36,7 +36,7 @@
 		}
 		out.print((columnIndex>0 ? "," : "") + "{ dataIndex: '"+ column.toUpperCase()+"', "); // cls : 'colFlag',
 		
-		if( !"random".startsWith(HoServletUtil.getString(request, "grid-id")) || !"random".startsWith(id) ) { 
+		if( !"random".startsWith(HoServletUtil.getString(request, "grid-id")) && !"random".startsWith(id) ) { 
 			out.print(" id : '"+id+"', ");
 		}
 		
@@ -167,9 +167,13 @@
 						out.print("		record.set('"+column+"', _checked );");
 						out.print("}");
 					} 
-					out.print(" } ,");
-				} 
+					out.print(" } ");
+					if( !"random".startsWith(HoServletUtil.getString(request, "grid-id")) && !"random".startsWith(id) ) {
+						out.print(" ,");
+					}
+				} 	
 %>
+<%	if( !"random".startsWith(HoServletUtil.getString(request, "grid-id")) && !"random".startsWith(id) ) {  %>
 				resize : function( column, width, height, oldWidth, oldHeight, eOpts ) { 
 					if( !column.isLoad && !column.flex && width != oldWidth ) { 
 						Ext.Ajax.request({
@@ -190,6 +194,7 @@
 					}
 					column.isLoad = false;  
 				}
+<%	} %>
 			} 
 
 

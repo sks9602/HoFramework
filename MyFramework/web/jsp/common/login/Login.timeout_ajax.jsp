@@ -35,7 +35,7 @@
 {	
 	"totalCount" : -300, 
 	"children" : [{'id' : -300}],
-	"datas":[]
+	"datas":[ {"totalCount" : -300, "message" : "Timeout." } ]
 }
 <%
 if (scriptTag) {

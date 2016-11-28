@@ -392,7 +392,7 @@ attribute name="require" type="java.lang.String" %><%-- 필수여부 : ('Y', tru
 		%>
 		<%= !"".equals(lead) ? "selType: '"+lead+"'," : "" %>
 		<% if( HoServletUtil.getArea(request).indexOf("fieldcontainer") > 0 ) { %>
-			margin: '0 0 0 <%= HoServletUtil.getArea(request).indexOf("section") > 0 ? "-5" : "-10" %>',
+			margin: '0 0 0 <%= HoServletUtil.getArea(request).indexOf("section") > 0 ? "0" : "-10" %>',
 	    <% } else if( !"center".equals(HoUtil.replaceNull(position)) )  { %>
 	        margin: '<%= HoUtil.replaceNull(position).equals("south") ? "5" : "0"%> <%= HoUtil.replaceNull(position).equals("west") ? "5" : "0"%> <%= HoUtil.replaceNull(position).equals("north") ? "5" : "0"%> <%= HoUtil.replaceNull(position).equals("east") ? "5" : "0" %>',
 	    <% } %>

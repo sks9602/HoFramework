@@ -81,6 +81,7 @@ attribute name="rowspan"    type="java.lang.String" %>
 				<%= (HoValidator.isNotEmpty(colspan) && HoValidator.isEmpty(width)) ? "width: "+ componentWidth+"*"+ colspan +"," : (HoValidator.isNotEmpty(width) ? "width: "+ width +"+" +labelWidth +"," : "") %> 
 				<%= HoValidator.isNotEmpty(colspan) ? "colspan: "+colspan+"," : ""  %><%= HoValidator.isNotEmpty(rowspan) ? "rowspan: "+rowspan+"," : ""  %>
 		        code          : '<%= groupCode %>'
+		        , plugins: ['counterCode']
 		     }
 <%
 		}

@@ -28,11 +28,15 @@
 	<jun:function action="추가" args=" table_name" url="/example/example.do?p_action_flag=r_detail"  fields="Sample.selectTableInfo">
 	alert( 'Example.v_list_formlist.jsp -> 추가');
 	</jun:function>
+
+	<jun:function action="클릭" args=" table_name" url="/example/example.do?p_action_flag=r_detail"  fields="Sample.selectTableInfo">
+	alert( 'Example.v_list_formlist.jsp -> 클릭');
+	</jun:function>
 </jun:functions>
 
 <jun:printScriptOut>
-	function fs_v_list_formlist_클릭() {
-	
+	function fs_${p_action_flag}_클릭() {
+		alert('fs_${p_action_flag}_클릭()');
 	}
 </jun:printScriptOut>
 
@@ -46,7 +50,7 @@
 	</jun:form>
 
 	<jun:data><!-- layout :  vbox, tab -->
-		<jun:grid id="grid_1" action="/example/example.do"  width="500" fields="Sample.selectTableList" position="west">
+		<jun:grid id="grid_1" action="/example/example.do"  width="500" fields="Sample.selectTableList" page="5" position="west">
 			<jun:columns>
 				<jun:column title="성명" column="TNAME" flex="1"></jun:column>
 				<jun:column title="사번" column="TABLE_NAME" ></jun:column>
@@ -66,7 +70,7 @@
 						renderer : function (value, p, record){
 	
 							return Ext.String.format(
-								"<div style=\"cursor:hand;\" onclick=\"fs_v_list_formlist_클릭('{1}');\"><b>{0}</b></div>",
+								"<div style=\"cursor:hand;\" onclick=\"fs_${p_action_flag}_클릭('{1}');\"><b>{0}</b></div>",
 							value,
 							record.data.table_name,
 							// "{"+ arg.join(",")+"}",

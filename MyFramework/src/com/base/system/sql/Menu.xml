@@ -62,6 +62,30 @@ SELECT MENU_ID ID, MENU_NM TEXT, P_MENU_ID P_ID, MENU_ID, MENU_NM, P_MENU_ID, SV
 	</choose>
 </select>
 
+<!--  메뉴 목록을 조회 -->
+<select id="selectAdminToolMenuList" parameterType="queryParameterMap" resultType="queryResultListMap">
+SELECT MENU_ID ID, MENU_NM TEXT, P_MENU_ID P_ID, MENU_ID, MENU_NM, P_MENU_ID, SVC_CD, USE_YN, LINK_URL, LINK_TYPE_CD, DISPLAY_YN, AUTH_APPLY_YN, ICON_CLS
+  FROM HO_T_SYS_MENU TSM
+ WHERE 1=1
+   AND MENU_ID > 'A'
+    <choose>
+	   <when test='METADATA == "Y"'>
+	   		AND 'N' = 'Y'
+	   </when>
+	   <otherwise>
+			<if test="SVC_CD != null and SVC_CD != '' ">
+			AND SVC_CD = #{SVC_CD}
+			</if>
+			<if test="USE_YN != null and USE_YN != '' ">
+			AND USE_YN = #{USE_YN}
+			</if>
+			<if test="MENU_NM != null and MENU_NM != '' ">
+			AND MENU_NM = #{MENU_NM}
+			</if>
+		</otherwise>
+	</choose>
+</select>
+
 
 <!--  메뉴 상세정보 조회 -->
 <select id="selectMenuInfo" parameterType="queryParameterMap" resultType="queryResultMap">

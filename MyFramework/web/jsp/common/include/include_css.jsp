@@ -4,5 +4,6 @@
 <link rel="stylesheet" type="text/css" href="/s/static/js/ext-4.2/ux/css/ButtonBadge.css" />
 <link rel="stylesheet" type="text/css" href="/s/static/js/ext-4.2/ux/css/AniProgressBar.css" />
 <link rel="stylesheet" type="text/css" href="/s/static/js/ext-4.2/ux/css/Ext.css" />
+<link rel="stylesheet" type="text/css" href="/s/static/js/ext-4.2/ux/css/app.css" />
 <link rel="stylesheet" type="text/css" href="/s/static/js/ext-4.2/resources/ux/ToggleSlide.css" />
 <!-- End of  include_css.jsp  -->

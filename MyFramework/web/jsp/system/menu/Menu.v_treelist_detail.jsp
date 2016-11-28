@@ -69,9 +69,11 @@
 				store.on("load", function(_this, _records, _successful, _eOpts ) {
 					// [메뉴 정보] From 내용 설정
 					var form = Ext.getCmp('v_treelist_detail_detail_detail_1');
-			        form.loadRecord(_records[0]);
+					var record =  getRecord(_records);
+					
+			        form.loadRecord(record);
 			
-					east.setTitle('[' + _records[0].data.MENU_NM +'] 메뉴의 상세 정보');
+					east.setTitle('[' + record.data.MENU_NM +'] 메뉴의 상세 정보');
 	
 					// [세부기능 목록] 조회.
 					var f_store = Ext.getStore('v_treelist_detail_store_grid_grid_2'); 
@@ -160,7 +162,7 @@
 				<jun:treecolumn title="메뉴 명" column="MENU_NM" flex="1" align="left" editor="link">
 					renderer : function (value, p, record){
 						return Ext.String.format(
-							"<span class=\"in_grid_url_link\"  onclick=\"fs_v_treelist_detail_grid_1_상세조회('{1}', '{2}');\">{0}</span>",
+							"<span class=\"in_grid_url_link\"  onclick=\"fs_${p_action_flag}_grid_1_상세조회('{1}', '{2}');\">{0}</span>",
 						value,
 						record.data.SVC_CD,
 						record.data.MENU_ID,

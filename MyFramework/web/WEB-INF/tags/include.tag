@@ -44,6 +44,8 @@
 
 	int labelWidth = 120;
 	String componentWidth = "320";
+	
+	request.setAttribute("p_action_flag", p_action_flag);
 %><%!
 	final int MAX_ROW_ITEM_SEARCH = 4;
 	final int MAX_ROW_ITEM_DETAIL = 4;

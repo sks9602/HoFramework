@@ -3,7 +3,7 @@
  */
 Ext.define('Ext.window.ux.DevelopeManger', {
 	extend: 'Ext.window.Window',
-    title: '개발 진행 상태 ',
+    title: '개발 진행 상태',
     role : 'DEVELOPER', // PM, TESTER, DEVELOPER,,
     memberId : undefined,
     menuId : undefined,
@@ -335,12 +335,12 @@ Ext.define('Ext.window.ux.DevelopeManger', {
     	    	items : [
     	    	{
     	    		xtype: 'fieldcontainer',
-    	    		layout: { type: 'hbox', defaultMargins: {top: 0, right: 3, bottom: 0, left: 0} },
+    	    		layout: { type: 'fit', defaultMargins: {top: 0, right: 3, bottom: 0, left: 0} },
 					items: [{
 	        	    		fieldLabel: '제목',
-	        	    		xtype: 'displayfield', // 'htmleditor',
-	        	    		value : '이것 저것 수정해 주세요!.'
-        	   				}]
+	        	    		xtype: 'textfield', // 'htmleditor',
+	        	    		blankText : '이것 저것 수정해 주세요!.'
+        	   		}]
     	    	},
         	   	{ 
         	   		xtype: 'fieldcontainer', 
@@ -396,21 +396,125 @@ Ext.define('Ext.window.ux.DevelopeManger', {
 			             ]
 			         })
 
-				},Ext.create('Ext.Img', {
+				},{
+    	    		xtype: 'fieldcontainer',
+    	    		layout: { type: 'hbox', defaultMargins: {top: 0, right: 3, bottom: 0, left: 0} },
+					items: [{
+	        	    		fieldLabel: '요청이미지  *여기에 이미지를 붙여넣기 하세요.->',
+	        	    		labelSeparator : '',
+	        	    		xtype: 'textfield', // 'htmleditor',
+	        	    		blankText : '',
+	        	    		itemId : 'image_paste',
+	        	    		labelWidth : 275,
+	        	    		width : 520,
+	        	    		listeners : {
+	        	    			afterrender : function(_this, e) {
+	        	    				Ext.getDom( _this.getInputId() ).onpaste = function (event) {
+										var items = (event.clipboardData || event.originalEvent.clipboardData).items;
+										var blob = null;
+										for (var i = 0; i < items.length; i++) {
+											if (items[i].type.indexOf("image") === 0) {
+												blob = items[i].getAsFile();
+											}
+										}
+										if (blob !== null) {
+											var reader = new FileReader();
+											reader.onload = function(event) {
+												_this.up('form').down('#image_display').setSrc( event.target.result );
+												_this.up('form').down('#image_src').setValue(event.target.result );
+												// _this.hide( );
+											};
+											reader.readAsDataURL(blob);
+										}
+									};
+	        	    			}
+	        	    		}
+        	   			},{
+        	   				xtype: 'hiddenfield',
+        	   				itemId: 'image_src'
+        	   			}]
+    	    	},Ext.create('Ext.Img', {
 					region : 'center',
 					width : 550,
 					height : 300,
-    	    		id : 'id_main_top_win_develop_status_req_img',
+    	    		itemId : 'image_display',
     	    	    src: 'http://www.sencha.com/img/20110215-feat-html5.png',
-    	    	}) ,{
+    	    	    listeners : {
+	    	            el: {
+	    	                click: function(_this) {
+	    	                	/*for( var x in arguments ) {
+	    	                		alert(arguments[x]);
+	    	                	}*/
+	    	                	var _src = arguments[1].src;
+	    	                	
+ 	    	                	Ext.create('Ext.window.Window', {
+	    	                	    title: 'Image',
+	    	                	    height: arguments[1].naturalHeight > Ext.getBody().getViewSize().height  ? Ext.getBody().getViewSize().height :  arguments[1].naturalHeight,
+	    	                	    width: arguments[1].naturalWidth > Ext.getBody().getViewSize().width ? Ext.getBody().getViewSize().width : arguments[1].naturalWidth ,
+	    	                	    layout: 'fit',
+	    	                	    maximizable : true,
+	    	                	    modal : true,
+	    	                	    // autoScroll : (arguments[1].naturalHeight > Ext.getBody().getViewSize().height||arguments[1].naturalWidth > Ext.getBody().getViewSize().width),
+	    	                	    // constrainHeader:true,
+	    	                	    constrain:true,
+	    	                	    // constrainTo: Ext.get('id_main_top_win_develop_status'),
+	    	                	    items: {  // Let's put an empty grid in just to illustrate fit layout
+	    	                	        xtype: 'image',
+	    	                	        src: _src
+	    	        					// , width : arguments[1].naturalWidth, height : arguments[1].naturalHeight
+	    	                	    }
+	    	                	}).show();
+	    	                },
+	    	    	    	focus : function(_this, The, eOpts ) {
+	    	    	    		// _this.up('form').down('#image_paste').show( );
+	    	    	    	}
+	    	            }
+    	    	    }
+    	    	}) 
+    	    	,{
     	    		xtype: 'fieldcontainer',
+    	    		cnt : 6,
     	    		layout: { type: 'fit', defaultMargins: {top: 0, right: 3, bottom: 0, left: 0} },
 					items: [{
 							fieldLabel: '요청 내용',
-	        	    		xtype: 'textarea', // 'htmleditor',
-	        	    		height : 80
-        	   		}]
-    	    	},{
+							xtype: 'displayfield',
+							value : ' '
+						},{
+        	   				fieldLabel: '1 ',
+        	   				labelWidth : 30,
+	        	    		xtype: 'textfield'
+						},{
+    	   					fieldLabel: '2 ',
+    	   					labelWidth : 30,
+    	   					xtype: 'textfield'
+						},{
+    	   					fieldLabel: '3 ',
+    	   					labelWidth : 30,
+	        	    		xtype: 'textfield'
+						},{
+	    	   				fieldLabel: '4 ',
+	    	   				labelWidth : 30,
+	        	    		xtype: 'textfield'
+						},{
+	    	   				fieldLabel: '5 ',
+	    	   				labelWidth : 30,
+	        	    		xtype: 'textfield'
+						},{
+		    	    		xtype: 'button',
+		    	    		text : '요청 내용 추가 (+)',
+		    	    		listeners : {
+		    	    			click : function( _this, e, eOpts  ) {
+		    	    				var fc = _this.up('fieldcontainer');
+		    	    				fc.insert(fc.cnt, {
+	    	    						fieldLabel: (fc.cnt++) + ' ',
+	    		    	   				labelWidth : 30,
+	    		        	    		xtype: 'textfield'	
+		    	    				});
+			    	    		}
+		    	    		} 
+						}]
+	    	    	}
+    	    	,{
     	    		xtype: 'fieldcontainer',
     	    		layout: { type: 'fit', defaultMargins: {top: 0, right: 3, bottom: 0, left: 0} },
 					items: [{
@@ -673,3 +777,4 @@ Ext.define('Ext.window.ux.DevelopeManger', {
 		this.menuId = menuId;
 	}
 });
+

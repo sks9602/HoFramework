@@ -33,12 +33,41 @@ Ext.define('Ext.ux.grid.dock.MeetingForm', {
     listeners : {
     	render : function(_this, eOpts) {
     		var fields = _this.query('textfield')
-    		for( var i=0; i<fields.length ; i++) {
+			var tree = _this.up('treepanel');
+    		var store = tree.getStore();
+
+    		tree.getView().select(0);
+    		
+            for( var i=0; i<fields.length ; i++) {
     			fields[i].on('specialkey', function(me, ef, efOpts) {
             		if(ef.getKey() === ef.ENTER) {
             			if (_this.isValid()) {
 
-            				var values = _this.getValues()
+            	    		var node = tree.getSelectionModel().getSelection();
+            				            	    		
+            				var values = _this.getValues();
+            				
+            				if( node ) {
+            					if( node[0].get('leaf') ) {
+            	    				node[0].set('leaf', false); 
+            	    			}
+            	    			
+            	    			try {
+            	    				var aNode = node[0].appendChild({
+	  	            	  		        text: me.getValue(),
+	  	            	  		        mode : 'insert',
+	  	            	  		        // name: '* No Title',
+	  	            	  		        leaf: true
+  	            	  				});
+            	    				aNode.setDirty();
+            	    				
+            	    				node[0].expand();
+            	    				
+            	    				me.setValue('');
+            	    			} catch(e) {
+            	    				
+            	    			}
+            				}
             				
         					// Store에 추가
 	                		Ext.getStore('id_main_top_function_store').add( values );
@@ -59,8 +88,11 @@ Ext.define('Ext.ux.grid.dock.MeetingDetailGrid', {
     extend: 'Ext.tree.Panel',
     xtype: 'meetingDetailGrid',
     columnLines: true,
-	rootVisible: false,
+	rootVisible: true,
     border : 0,
+    plugins:[
+             Ext.create('Ext.grid.plugin.CellEditing', {clicksToEdit : 1})
+          ],
     dockedItems: [
         {
             xtype: 'meetingFormTopDock',
@@ -85,7 +117,7 @@ Ext.define('Ext.ux.grid.dock.MeetingDetailGrid', {
 				{xtype: 'rownumberer', text : 'No', width: 24 },
 				{xtype: 'treecolumn',  text: "회의 내용", flex : 1, dataIndex: 'text', resizable : true,
 					renderer: function(v, p, r) {
-						return Ext.String.format("<span class=\"in_grid_url_link\" style=\"text-align:left\"  onclick=\"alert(1); fs_click_meetingItem(1)\">{0}</span>", v, r.data.ID);
+						return Ext.String.format("<span class=\"in_grid_url_link\" style=\"text-align:left\"  onclick=\"fs_click_meetingItem(1)\">{0}</span>", v, r.data.ID);
 					},
                     editor: {
                         xtype: 'textfield',
@@ -137,6 +169,7 @@ Ext.define('Ext.ux.grid.dock.MeetingDetailGrid', {
         this.store = Ext.create('Ext.data.TreeStore', {
         	root: {
                 expanded: true,
+                text: "* 회의내용을 1단계에 추가시 여기를 선택하고 추가하세요.", 
                 children: [
                     { text: "detention", leaf: true },
                     { text: "homework", expanded: true, children: [
