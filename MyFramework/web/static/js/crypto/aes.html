@@ -1,0 +1,18 @@
+<html>
+<script src="aes.js"></script>
+<script>
+var key = CryptoJS.enc.Hex.parse('kiost_eval_20161026_090a0b0#_key');
+var iv = CryptoJS.enc.Hex.parse('kiost_eval_20161026_083c1fa$#_iv');
+
+var encrypted = CryptoJS.AES.encrypt("87234", key, { iv: iv });
+var decrypted = CryptoJS.AES.decrypt(encrypted, key, { iv: iv });
+
+document.write("<br/>ciphertext : "+encrypted.ciphertext);
+document.write("<br/>encrypted : "+encrypted);
+document.write("<br/>decrypted :"+decrypted.toString(CryptoJS.enc.Utf8));
+</script>
+
+<body>
+
+</body>
+</html>

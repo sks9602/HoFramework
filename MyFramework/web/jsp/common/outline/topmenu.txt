@@ -1,0 +1,60 @@
+{	text: 'Radio Options',
+						menu: {
+					        items: [{
+					                text: 'Menu One',
+					                iconCls: 'edit'
+					            }, {
+					                text: 'Menu Two',
+					                menu: {
+					                    xtype: 'menu',
+					                    items: [{
+					                        text: 'Next Level'
+					                    },{
+					                        text: 'Next Level'
+					                    },{
+					                        text: 'Next Level',
+					                        	menu: {
+								                    items: [{
+								                        text: 'Next Level2-1'
+								                    },{
+								                        text: 'Next Level2-2'
+								                    },{
+								                        text: 'Next Level2-3'
+								                    }]
+								                }
+					                    }]
+					                }
+					            }, {
+					                text: 'Menu Three',
+					                scale: 'small'
+					            }, {
+					                text: 'Menu Four',
+					                scale: 'small'
+					        }]
+					    }
+					}, {text: 'Radio Options',
+						menu: {        
+						    items: [
+						        {
+						            text: 'Aero Glass',
+						            checked: true,
+						            group: 'theme',
+						            checkHandler: onItemCheck
+						        }, {
+						            text: 'Vista Black',
+						            checked: false,
+						            group: 'theme'
+						        }, {
+						            text: 'Gray Theme',
+						            checked: false,
+						            group: 'theme',
+						            checkHandler: onItemCheck
+						        }, {
+						            text: 'Default Theme',
+						            checked: false,
+						            group: 'theme',
+						            checkHandler: onItemCheck
+						        }
+						    ]
+						}
+				}, 
