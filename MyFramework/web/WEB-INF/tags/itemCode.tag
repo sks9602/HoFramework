@@ -254,7 +254,7 @@ attribute name="rowspan"    type="java.lang.String" %><%
 				xtype         : 'combotipple_ux', 
 				id            : 'id_cmp_<%=p_action_flag %>_<%=HoServletUtil.getString(request, "form-id") %>_<%= name %>',
 				first         : '<%= HoUtil.replaceNull(first) %>',
-		        fieldLabel    : '<%= title %>', <%= HoValidator.isIn(require, new String[]{"Y","true"}, true) ? "allowBlank : false, labelCls   : 'x-form-item-label x-form-item-label-required'," : "" %>
+		        fieldLabel    : '<%= title %><%= HoValidator.isIn(multiSelect, new String[]{"Y","true"}, true)  ? "(s)" : ""%>', <%= HoValidator.isIn(require, new String[]{"Y","true"}, true) ? "allowBlank : false, labelCls   : 'x-form-item-label x-form-item-label-required'," : "" %>
 		        labelWidth : <%=labelWidth %>,
 		        name          : '<%= name %>',
 		        <%= HoValidator.isNotEmpty(codeColumn)? "valueField : '" + codeColumn +"'," : "" %><%= HoValidator.isNotEmpty(nameColumn)? "diplayField : '" + nameColumn +"'," : "" %>

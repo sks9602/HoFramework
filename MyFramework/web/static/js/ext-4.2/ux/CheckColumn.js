@@ -258,12 +258,98 @@ Ext.define('Ext.form.field.ux.CheckColumn', {
         	}
 	        
         	if( progressBar ) {
-	 	        progressBar.show( null, function() {progressBar.updateProgress(0, 'Initiated.', true, this); }, this );
+	 	        progressBar.show( null, function() {progressBar.updateProgress(0, 'Initiated.', false, this); }, this );
 		        
-		        progressBar.updateProgress(0, 'Changing.', true, this);
+		        progressBar.updateProgress(0, 'Changing.', false, this);
         	}
         	
 	        store.suspendEvents();
+	        
+	        
+	        
+	        var changeArr = new Array(), page=20;	        
+	        for( var i=0; i<=Math.ceil(storeCnt/page); i++) {
+	        	if( storeCnt >= Math.min(((i+1)*page)-1, storeCnt) && i*page <= Math.min(((i+1)*page)-1, storeCnt) ) {
+	        		changeArr[i] = [i*page, Math.min(((i+1)*page)-1, storeCnt-1), storeCnt ];
+	        	}
+	        }
+	                
+	        var changeFn = function(changeArr, idx) {
+	        	var idx = idx||0;
+	        	var sIdx = changeArr[idx][0], eIdx = changeArr[idx][1], tIdx = changeArr[idx][2];
+		        for(var i = sIdx; i <= eIdx  ; i++) {
+		        	// disabled Value가 아닌 경우에만 변경..
+		        	var record = store.getAt(i);
+		        	var checkVal = checkReferColumn ? record.get(checkReferColumn) :  record.get(dataIndex) ;
+		        	
+		        	// fs_HoScriptLog('checkVal : ' + checkVal);
+		        	
+		        	if( disableValue && !me.isHiddenValue(checkVal) ){
+		            	if( Ext.isArray(disableValue) ) {
+ 		        			if( !Ext.Array.contains(disableValue, checkVal) ) {
+		        				if(dataIndex.endsWith("_YN")) {
+		        					store.getAt(i).set(dataIndex, checked ? "Y" : "N" );
+		        				} else {
+		        					store.getAt(i).set(dataIndex, checked );
+		        				}
+		        	     	}
+		        		} else if( checkVal != disableValue ) {
+	        				if(dataIndex.endsWith("_YN")) {
+	        					store.getAt(i).set(dataIndex, checked ? "Y" : "N" );
+	        				} else {
+	        					store.getAt(i).set(dataIndex, checked );
+	        				}
+		        		}
+		            }
+		        	
+		        	
+		        	// if( store.getAt(i).get(dataIndex) != disableValue ) {
+			        // 	store.getAt(i).set(dataIndex, checked );  // ? 'Y' :'N'
+		        	// }
+		        	/*
+		        	if( progressBar ) {
+			        	if( i%10 == 9 ) {
+			                v = i/tIdx;
+			                progressBar.updateProgress(v, Math.round(100*v) + '% changed', true, this);
+			        	}
+		        	}
+		        	*/
+		        }
+		        if( progressBar ) {
+		        	if( tIdx == i ) {
+				        store.resumeEvents();
+				        grid.getView().refresh();
+		        		
+		        		progressBar.updateProgress(1, 'It&#39s done.', false, this);
+		        	} else {
+		                var v = i/tIdx;
+		                progressBar.updateProgress(v, Math.round(100*v) + '% changed.', false, this);		        		
+		        	}
+		        }
+		        
+		        if( changeArr.length > idx+1) {
+		        	idx += 1;
+		        	Ext.Function.defer(changeFn, 100, this, [changeArr, idx] );
+		        }
+	        }
+
+	        changeFn(changeArr);
+	        
+	        // store.resumeEvents();
+	        // grid.getView().refresh();
+	        
+/*
+	        for( var i=0; i<changeArr.length ; i++ ) {
+	        	// var f = Ext.Function.createDelayed(changeFn, 200*i, this, [changeArr[i][0], changeArr[i][1], changeArr[i][2]] );
+				// f();
+	        	
+	        	Ext.Function.defer(changeFn, 2000*i, this, [changeArr[i][0], changeArr[i][1], changeArr[i][2]] );
+	        }
+*/
+	        
+	        
+	        
+/*
  	        Ext.Function.defer(function() {
 		        // 실제 data변경
 		        for(var i = 0; i < storeCnt  ; i++) {
@@ -293,11 +379,11 @@ Ext.define('Ext.form.field.ux.CheckColumn', {
 		        		}
 		            }
 		        	
-		        	/*
-		        	if( store.getAt(i).get(dataIndex) != disableValue ) {
-			        	store.getAt(i).set(dataIndex, checked );  // ? 'Y' :'N'
-		        	}
-		        	*/
+		        	
+		        	// if( store.getAt(i).get(dataIndex) != disableValue ) {
+			        // 	store.getAt(i).set(dataIndex, checked );  // ? 'Y' :'N'
+		        	// }
+		        	
 		        	if( progressBar ) {
 			        	if( i%20 == 19 ) {
 			                v = i/storeCnt;
@@ -312,6 +398,7 @@ Ext.define('Ext.form.field.ux.CheckColumn', {
 		        }
 		        
 	        }, 100);
+*/
         } catch(e) {
         	console.log( e );
         	

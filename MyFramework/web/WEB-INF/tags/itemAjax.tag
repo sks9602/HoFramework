@@ -71,7 +71,7 @@ attribute name="rowspan"    type="java.lang.String" %>
 %>
 			{
 		        xtype         : 'comboajax_ux', 
-		        fieldLabel    : '<%= title %>', <%= HoValidator.isIn(require, new String[]{"Y","true"}, true) ? "allowBlank : false, labelCls   : 'x-form-item-label x-form-item-label-required'," : "" %>
+		        fieldLabel    : '<%= title %><%= HoValidator.isIn(multiSelect, new String[]{"Y","true"}, true)  ? "(s)" : ""%>', <%= HoValidator.isIn(require, new String[]{"Y","true"}, true) ? "allowBlank : false, labelCls   : 'x-form-item-label x-form-item-label-required'," : "" %>
 		        name          : '<%= name %>',
 		        value         : '<%= value %>', // <%-- ['HR_ABL','HR_ABL_IDX'] <-- 이렇게 넣어도 하나만 선택됨..,   --%>
 		        <jsp:doBody></jsp:doBody>

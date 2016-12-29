@@ -114,7 +114,7 @@ attribute name="maxLength"    type="java.lang.String" %><%
 				xtype         : 'combotipple_ux', 
 				id            : '<%=p_action_flag %>_<%=HoServletUtil.getString(request, "form-id") %>_<%= name %>_type',
 				first         : '<%= HoUtil.replaceNull(first) %>',
-		        fieldLabel    : '<%= title %>', <%= HoValidator.isIn(require, new String[]{"Y","true"}, true) ? "allowBlank : false, labelCls   : 'x-form-item-label x-form-item-label-required'," : "" %>
+		        fieldLabel    : '<%= title %><%= HoServletUtil.getString(request, "form-id").indexOf("search")>=0 ? "(s)" : ""%>', <%= HoValidator.isIn(require, new String[]{"Y","true"}, true) ? "allowBlank : false, labelCls   : 'x-form-item-label x-form-item-label-required'," : "" %>
 		        labelWidth : <%=labelWidth %>,
 		        name          : '<%= name %>_type',
 		        width : 280, margin : '0 4 0 0',
@@ -152,6 +152,10 @@ attribute name="maxLength"    type="java.lang.String" %><%
 				<%= HoValidator.isNotEmpty(unit) ? "afterSubTpl : '"+ unit +"'," : "" %>		
 				<%= HoValidator.isNotEmpty(colspan) ? "colspan: "+colspan+"," : ""  %><%= HoValidator.isNotEmpty(rowspan) ? "rowspan: "+rowspan+"," : ""  %>
 				qtip       : '<%= title %>'
+				<% if( HoServletUtil.getString(request, "form-id").indexOf("search")>=0 ) { %>
+				, fieldLabelId : '<%=p_action_flag %>_<%=HoServletUtil.getString(request, "form-id") %>_<%= name %>_type'
+				, plugins: ['counterWord']
+				<% } %>
 			}
 		]}
 <%		}
